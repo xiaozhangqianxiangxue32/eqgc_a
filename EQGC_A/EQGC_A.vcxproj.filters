@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EQGC_A.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dynamics.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="planner.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="guidance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamics.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="planner.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="guidance.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="spline1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="plot_mission_config.m" />
+    <None Include="plot_mission_config.py" />
+    <None Include="README_VISUALIZATION.md" />
+    <None Include="plot_trajectory_comparison.m" />
+    <None Include="README_TRAJECTORY_PLOT.md" />
+    <None Include="quick_plot.m" />
+    <None Include="visualize_astar.m" />
+    <None Include="verify_collision.m" />
+    <None Include="ASTAR_IMPROVEMENTS.md" />
+    <None Include="visualize_astar_results.m" />
+    <None Include="README_MATLAB_VISUALIZATION.md" />
+    <None Include="quick_plot_astar.m" />
+    <None Include="VISUALIZATION_GUIDE.md" />
+    <None Include="PROJECT_SUMMARY.md" />
+    <None Include="PLANNER_UPGRADE_NOTES.md" />
+    <None Include="TERMINATION_FIX_NOTES.md" />
+    <None Include="CODE_CLEANUP_AND_BANK_LIMIT_NOTES.md" />
+    <None Include="OSCILLATION_FIX_NOTES.md" />
+    <None Include="plot_results_with_waypoints.m" />
+    <None Include="WAYPOINT_VISUALIZATION_GUIDE.md" />
+    <None Include="DIRECT_CONNECTION_OPTIMIZATION.md" />
+    <None Include="PI_VALUE_FIX.md" />
+    <None Include="DUPLICATE_TARGET_FIX.md" />
+    <None Include="SAFETY_MARGIN_CHECK.md" />
+    <None Include="MINIMUM_TURN_ANGLE_COST.md" />
+    <None Include="TARGET_VICINITY_500M.md" />
+  </ItemGroup>
+</Project>

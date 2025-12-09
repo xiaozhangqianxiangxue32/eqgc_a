@@ -6,8 +6,8 @@
 class GuidanceQEGC {
 private:
     // 调整增益参数以提供更强的高度控制
-    double k_t1 = 1, k_t2 = 0.01, eps_t = 0.01;  // 增加纵向增益
-    double k_s1 = 4 , k_s2 = 0.8, eps_s = 0.01;
+    double k_t1 = 1, k_t2 = 0.001, eps_t = 0.001;  // 增加纵向增益
+    double k_s1 = 4 , k_s2 = 0.001, eps_s = 0.001;
     HGVDynamics* dyn_ptr; // 持有动力学指针
 
     // 新增：航迹跟踪相关成员

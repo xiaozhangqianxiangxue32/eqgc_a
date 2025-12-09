@@ -120,6 +120,11 @@ GuidanceQEGC::Command GuidanceQEGC::update(const State& s) {
     // --- 5. 指令合成 ---
     double total_acc = std::sqrt(az_vert * az_vert + az_horz * az_horz);
     double bank = std::atan2(az_horz, az_vert);
+
+    // 新增：侧倾角限制 (-85 到 +85 度)
+    const double max_bank_rad = 85.0 * Config::DEG2RAD;
+    bank = std::max(-max_bank_rad, std::min(bank, max_bank_rad));
+
     double CL_req = (Config::Mass * total_acc) / (q_dyn * Config::S_ref);
     double alpha_deg = solveAlpha(CL_req, mach);
     alpha_deg = std::max(Config::alpha_min, std::min(alpha_deg, Config::alpha_max));

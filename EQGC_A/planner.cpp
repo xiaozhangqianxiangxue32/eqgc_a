@@ -6,10 +6,11 @@
 #include <iomanip>
 
 #ifndef M_PI
-#define M_PI 3.14159265358979323846
+#define M_PI 3.14159
 #endif
+#include <set>
 #ifndef PI
-#define PI 3.14159265358979323846  // 修复：原来的 3.14/4 是错误的
+#define PI 3.14159 // 修复：原来的 3.14/4 是错误的
 #endif
 using namespace Config;
 
@@ -118,6 +119,7 @@ std::vector<Point> AStarPlanner::plan(const State& start_state, const Point& tar
 
 // Private implementation that takes a Point object
 std::vector<Point> AStarPlanner::plan(const Point& start, const Point& target, const std::vector<NoFlyZone>& nfzs) {
+    std::set<std::pair<double, double>> closed_set;
     // 内存池管理
     std::vector<Node*> node_pool;
     std::priority_queue<NodeWrapper> open_list;
@@ -213,6 +215,7 @@ if (dist_to_target * Re < 500.0) { // 500m范围内（从5km修改为500m）
 
         // 2. 扩展切点 (Tangent Expansion)
         for (int i = 0; i < (int)nfzs.size(); ++i) {
+
             if (i == current->nfz_idx) continue; // 防止回跳
 
             // 获取球面切点
@@ -223,7 +226,11 @@ if (dist_to_target * Re < 500.0) { // 500m范围内（从5km修改为500m）
                 if (isBlockedGlobal(current->pos, next_pos, nfzs, current->nfz_idx)) {
                     continue;
                 }
-
+                // 在创建 next_node 前添加
+                std::pair<double, double> pos_key = { std::round(next_pos.lon * 1e6), std::round(next_pos.lat * 1e6) };
+                if (closed_set.find(pos_key) != closed_set.end()) continue;
+                // 创建 next_node 后添加
+                closed_set.insert(pos_key);
                 // *** 关键优化: 在生成切点后，立即检查该切点能否直连终点 ***
    // 不仅要检查是否被阻挡，还要检查是否距离其他禁飞区太近
     if (!isBlockedGlobal(next_pos, target, nfzs, i) && 
@@ -289,21 +296,22 @@ next_pos,
             // 代价组成：
    // g_cost = 累积转向角 + 距离代价（较小权重）
        double turn_cost = turn_angle;  // 转向角代价（主要）
-       double dist_cost = dist_segment * 0.1;  // 距离代价（次要，权重0.1）
+       double dist_cost = dist_segment * 0;  // 距离代价（次要，权重0.1）
       double new_g = current->g_cost + turn_cost + dist_cost;
       
         // h_cost 仍然使用直线距离作为启发式
-   double new_h = Utils::calcDistRad(next_pos, target);
-
+      double az_to_target = Utils::calcAzimuth(next_pos, target);
+      double new_h = std::abs(Utils::normalizeAngle(az_to_target - az_next));
+      double new_f = new_g + new_h;
         Node* next_node = new Node{
-        next_pos,
-   new_g,
+                    next_pos,
+                    new_g,
                     new_h,
-             new_g + new_h, // f = g + h
-          az_next,  // 记录新的航向
-         current,
-       i
-      };
+                    new_f, // f = g + h
+                    az_next,  // 记录新的航向
+                    current,
+                    i
+                    };
 
   node_pool.push_back(next_node);
         open_list.push({ next_node });
